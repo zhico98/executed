@@ -1,0 +1,518 @@
+@font-face {
+  font-family: "PublicPixel";
+  src: url("/fonts/PublicPixel.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-black;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: "Courier New", monospace;
+  }
+}
+
+.pixel-font {
+  font-family: "PublicPixel", "Courier New", monospace;
+  image-rendering: pixelated;
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+}
+
+/* Theme Variables */
+:root {
+  --primary-color: #00ff00;
+  --primary-glow: rgba(0, 255, 0, 0.5);
+  --primary-shadow: rgba(0, 255, 0, 0.8);
+}
+
+[data-theme="blue"] {
+  --primary-color: #0099ff;
+  --primary-glow: rgba(0, 153, 255, 0.5);
+  --primary-shadow: rgba(0, 153, 255, 0.8);
+}
+
+[data-theme="red"] {
+  --primary-color: #ff0066;
+  --primary-glow: rgba(255, 0, 102, 0.5);
+  --primary-shadow: rgba(255, 0, 102, 0.8);
+}
+
+[data-theme="pink"] {
+  --primary-color: #ff66cc;
+  --primary-glow: rgba(255, 102, 204, 0.5);
+  --primary-shadow: rgba(255, 102, 204, 0.8);
+}
+
+[data-theme="purple"] {
+  --primary-color: #9966ff;
+  --primary-glow: rgba(153, 102, 255, 0.5);
+  --primary-shadow: rgba(153, 102, 255, 0.8);
+}
+
+[data-theme="rgb"] {
+  --primary-color: #ff0000;
+  --primary-glow: rgba(255, 0, 0, 0.5);
+  --primary-shadow: rgba(255, 0, 0, 0.8);
+  animation: colorCycle 3s ease-in-out infinite;
+}
+
+@keyframes colorCycle {
+  0% {
+    --primary-color: #ff0000;
+    --primary-glow: rgba(255, 0, 0, 0.5);
+    --primary-shadow: rgba(255, 0, 0, 0.8);
+  }
+  16.66% {
+    --primary-color: #ff8800;
+    --primary-glow: rgba(255, 136, 0, 0.5);
+    --primary-shadow: rgba(255, 136, 0, 0.8);
+  }
+  33.33% {
+    --primary-color: #ffff00;
+    --primary-glow: rgba(255, 255, 0, 0.5);
+    --primary-shadow: rgba(255, 255, 0, 0.8);
+  }
+  50% {
+    --primary-color: #00ff00;
+    --primary-glow: rgba(0, 255, 0, 0.5);
+    --primary-shadow: rgba(0, 255, 0, 0.8);
+  }
+  66.66% {
+    --primary-color: #0088ff;
+    --primary-glow: rgba(0, 136, 255, 0.5);
+    --primary-shadow: rgba(0, 136, 255, 0.8);
+  }
+  83.33% {
+    --primary-color: #8800ff;
+    --primary-glow: rgba(136, 0, 255, 0.5);
+    --primary-shadow: rgba(136, 0, 255, 0.8);
+  }
+  100% {
+    --primary-color: #ff0000;
+    --primary-glow: rgba(255, 0, 0, 0.5);
+    --primary-shadow: rgba(255, 0, 0, 0.8);
+  }
+}
+
+/* Top Navigation */
+.top-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 50;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.nav-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-button {
+  background: #000;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  padding: 8px 16px;
+  cursor: pointer;
+  font-family: "Courier New", monospace;
+  font-size: 12px;
+  transition: all 0.3s;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-button:hover {
+  background: var(--primary-color);
+  color: #000;
+  box-shadow: 0 0 10px var(--primary-glow);
+}
+
+/* Theme Selector - Bottom Right */
+.theme-selector {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 60;
+}
+
+.theme-color {
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+  border: 1px solid #333;
+  transition: all 0.3s;
+}
+
+.theme-color:hover {
+  border-color: #fff;
+  transform: scale(1.2);
+}
+
+.theme-color.green {
+  background: #00ff00;
+}
+.theme-color.blue {
+  background: #0099ff;
+}
+.theme-color.red {
+  background: #ff0066;
+}
+.theme-color.pink {
+  background: #ff66cc;
+}
+.theme-color.purple {
+  background: #9966ff;
+}
+
+.theme-color.rgb {
+  background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff, #ffff00, #ff00ff, #00ffff);
+  background-size: 400% 400%;
+  animation: rainbow 2s ease infinite;
+}
+
+@keyframes rainbow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Game Modal */
+.game-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.game-window {
+  width: 800px;
+  height: 600px;
+  background: #000;
+  border: 2px solid var(--primary-color);
+  box-shadow: 0 0 30px var(--primary-shadow);
+  display: flex;
+  flex-direction: column;
+}
+
+.game-titlebar {
+  background: #000;
+  color: var(--primary-color);
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--primary-color);
+  font-size: 14px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Courier New", monospace;
+}
+
+.game-close {
+  background: #ff0000;
+  color: #fff;
+  border: none;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-content {
+  flex: 1;
+  background: #000;
+  color: var(--primary-color);
+  padding: 16px;
+  font-family: "Courier New", monospace;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  font-size: 11px;
+  line-height: 1.1;
+}
+
+.game-output {
+  flex: 1;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.game-input-area {
+  border-top: 1px solid var(--primary-color);
+  padding-top: 12px;
+}
+
+.game-input {
+  width: 100%;
+  background: transparent;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  padding: 8px;
+  font-family: "Courier New", monospace;
+  font-size: 12px;
+  outline: none;
+}
+
+.game-input:focus {
+  box-shadow: 0 0 10px var(--primary-glow);
+}
+
+.game-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 10px;
+  color: var(--primary-color);
+}
+
+.game-theme-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.game-theme-color {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  border: 1px solid #333;
+  transition: all 0.3s;
+}
+
+.game-theme-color:hover {
+  border-color: #fff;
+  transform: scale(1.2);
+}
+
+/* CMD Window */
+.cmd-window {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 900px;
+  height: 600px;
+  background: #000;
+  border: 2px solid var(--primary-color);
+  box-shadow: 0 0 20px var(--primary-glow);
+  display: flex;
+  flex-direction: column;
+  z-index: 20;
+}
+
+.cmd-titlebar {
+  background: #000;
+  color: var(--primary-color);
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--primary-color);
+  font-size: 14px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Courier New", monospace;
+}
+
+.cmd-content {
+  flex: 1;
+  background: #000;
+  color: var(--primary-color);
+  padding: 12px;
+  font-family: "Courier New", monospace;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  font-size: 11px;
+  line-height: 1.1;
+}
+
+.cmd-output {
+  flex: 1;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.cmd-input-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cmd-input {
+  background: transparent;
+  border: none;
+  color: var(--primary-color);
+  outline: none;
+  flex: 1;
+  font-family: "Courier New", monospace;
+  font-size: 11px;
+}
+
+.cmd-prompt {
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+/* Popup */
+.virus-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #000;
+  border: 2px solid var(--primary-color);
+  box-shadow: 0 0 30px var(--primary-shadow);
+  padding: 16px;
+  z-index: 100;
+  min-width: 180px;
+  text-align: center;
+}
+
+.virus-popup h1 {
+  color: var(--primary-color);
+  font-size: 14px;
+  font-weight: normal;
+  margin: 0;
+  text-shadow: 0 0 10px var(--primary-shadow);
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: "Courier New", monospace;
+}
+
+.virus-popup h1:hover {
+  text-shadow: 0 0 15px var(--primary-shadow);
+  transform: scale(1.05);
+}
+
+.loading-container {
+  margin-top: 12px;
+}
+
+.loading-bar {
+  width: 100%;
+  height: 14px;
+  background: #003300;
+  border: 1px solid var(--primary-color);
+  margin-bottom: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.loading-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-color), var(--primary-color));
+  transition: width 0.1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  font-weight: bold;
+  font-size: 9px;
+}
+
+.loading-text {
+  color: var(--primary-color);
+  font-size: 10px;
+  font-family: "Courier New", monospace;
+  margin-bottom: 4px;
+}
+
+.loading-binary {
+  color: var(--primary-color);
+  font-size: 8px;
+  font-family: "Courier New", monospace;
+  letter-spacing: 1px;
+  opacity: 0.7;
+}
+
+/* Glitch Effect */
+@keyframes glitch {
+  0% {
+    transform: translate(-50%, -50%);
+  }
+  20% {
+    transform: translate(-51%, -49%);
+  }
+  40% {
+    transform: translate(-49%, -51%);
+  }
+  60% {
+    transform: translate(-51%, -49%);
+  }
+  80% {
+    transform: translate(-49%, -51%);
+  }
+  100% {
+    transform: translate(-50%, -50%);
+  }
+}
+
+.glitch {
+  animation: glitch 0.3s infinite;
+}
+
+.typing {
+  border-right: 2px solid var(--primary-color);
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%,
+  50% {
+    border-color: var(--primary-color);
+  }
+  51%,
+  100% {
+    border-color: transparent;
+  }
+}
